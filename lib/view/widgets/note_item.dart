@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 
-class NoteItem extends StatefulWidget {
-  const NoteItem({super.key});
-
-  @override
-  State<NoteItem> createState() => _NoteItemState();
-}
-
-class _NoteItemState extends State<NoteItem> {
+class NoteItem extends StatelessWidget {
+  const NoteItem({super.key, });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +19,7 @@ class _NoteItemState extends State<NoteItem> {
           Container(
             width: 20,
             height: 20,
-            decoration: const BoxDecoration(
+            decoration:  const BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.red
             ),
@@ -48,7 +42,8 @@ class _NoteItemState extends State<NoteItem> {
                 '${now.day}/${now.month}',
               style: const TextStyle(
                 fontWeight: FontWeight.w700,
-                fontSize: 16
+                fontSize: 16,
+
               ),
               ),
               Text('$hour:$minute',

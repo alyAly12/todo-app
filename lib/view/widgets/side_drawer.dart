@@ -3,6 +3,7 @@ import 'package:todo_task/view/widgets/custom_text_field.dart';
 
 import 'color_picker_widget.dart';
 
+
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
 
@@ -67,13 +68,69 @@ class _MyDrawerState extends State<MyDrawer> {
                   );
                 }),
               ),
-             const SizedBox(height: 20,),
+              const Text('Name',
+                style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
+              ),
+
             //  TODO add custom text field
               const CustomTitleTextField(),
               const SizedBox(height: 20,),
+              const Text('Description',
+                style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
+              ),
               const Padding(
                 padding:  EdgeInsets.all(6.0),
                 child: CustomBodyTextField(),
+              ),
+              const SizedBox(height: 20,),
+              const Text('Date',
+                style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
+              ),
+              //TODO date picker
+              Container(
+                width: double.infinity,
+                height: 60,
+                color: Colors.red,
+              ),
+              const SizedBox(height: 20,),
+              // TODO time picker
+              const Text('Time',
+                style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
+              ),
+              Container(
+                width: double.infinity,
+                height: 60,
+                color: Colors.red,
+              ),
+              const SizedBox(height: 20,),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 10),
+                child: GestureDetector(
+                  onTap: (){},
+                  child: Container(
+                    width: 170,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.lightBlue,
+                      gradient:  LinearGradient(
+                        begin:Alignment.topRight ,
+                          end: Alignment.bottomLeft,
+                          stops:const [0.4,0.6,],
+                          colors: [Colors.lightBlue.shade400,Colors.blue,],
+                      ),
+                      borderRadius: BorderRadius.circular(45),
+                    ),
+                    child:  const Center(
+                      child: Text('Add',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 24
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               )
             ],
           ),

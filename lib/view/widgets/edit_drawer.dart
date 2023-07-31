@@ -35,7 +35,7 @@ class _EditDrawerState extends State<EditDrawer> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Edit',
+                'Update Task',
                 style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.normal

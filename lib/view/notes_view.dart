@@ -1,13 +1,12 @@
 
 import 'package:flutter/material.dart';
-
 import 'package:todo_task/view/widgets/notes_view_body.dart';
 import 'package:todo_task/view/widgets/side_drawer.dart';
 
 
 
 class NotesView extends StatefulWidget {
-  const NotesView({super.key});
+  const NotesView({super.key,});
 
   @override
   State<NotesView> createState() => _NotesViewState();
@@ -18,7 +17,7 @@ class _NotesViewState extends State<NotesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: const MyDrawer(),
+      endDrawer:const MyDrawer(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(

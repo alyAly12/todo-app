@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:todo_task/cubites/add_note_cubit/add_note_cubit.dart';
 import 'package:todo_task/model/note_model.dart';
 import 'package:todo_task/view/widgets/custom_text_field.dart';
@@ -15,6 +14,7 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+
   final GlobalKey<FormState> formKey = GlobalKey();
   final List<Color> color = [
     Colors.pink,
@@ -35,15 +35,15 @@ class _MyDrawerState extends State<MyDrawer> {
       child: BlocConsumer<AddNoteCubit, AddNoteState>(
         listener: (context, state) {
           if (state is AddNoteFailure) {
-            print('failed ${state.errorMessage}');
+          //  TODO add error message
           }
           if (state is AddNoteSuccess) {
             Navigator.pop(context);
           }
         },
         builder: (context, state) {
-          return ModalProgressHUD(
-            inAsyncCall: state is AddNoteLoading ? true : false,
+          return AbsorbPointer(
+            absorbing: state is AddNoteLoading ?true:false,
             child: GestureDetector(
               onTap: () {
                 FocusScope.of(context).unfocus();
@@ -193,8 +193,9 @@ class _MyDrawerState extends State<MyDrawer> {
                                 ),
                                 borderRadius: BorderRadius.circular(45),
                               ),
-                              child: const Center(
-                                child: Text(
+                              child:const Center(
+                                child:
+                                 Text(
                                   'Add',
                                   style: TextStyle(
                                       color: Colors.white,

@@ -14,6 +14,7 @@ final void Function(String?)?onSaved;
       child: Stack(
         children: <Widget>[
            TextFormField(
+             textInputAction: TextInputAction.next,
              onSaved:onSaved ,
             validator: (value){
                if(value?.isEmpty ??true){
@@ -67,6 +68,7 @@ class CustomBodyTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  TextFormField(
+      textInputAction: TextInputAction.done,
       onSaved: onSaved,
        validator: (value){
       if(value?.isEmpty ??true){

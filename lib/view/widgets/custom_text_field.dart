@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 
 class CustomTitleTextField extends StatelessWidget {
-  const CustomTitleTextField({super.key});
-
+  const CustomTitleTextField({super.key, this.onSaved});
+final void Function(String?)?onSaved;
   @override
   Widget build(BuildContext context) {
 
     return  Container(
-      height: 30,
+      height: 22,
       margin: const EdgeInsets.all(
         10.0,
       ),
       child: Stack(
         children: <Widget>[
-          const TextField(
+           TextFormField(
+             onSaved:onSaved ,
+            validator: (value){
+               if(value?.isEmpty ??true){
+                 return 'Field is required';
+               }
+               return null;
+            },
             cursorColor: Colors.purple,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               // hintText: 'Name',
               // hintStyle: TextStyle(
               //   color: Colors.grey
@@ -25,12 +32,12 @@ class CustomTitleTextField extends StatelessWidget {
                 horizontal: 15.0,
               ),
               border: UnderlineInputBorder(
-                borderSide: BorderSide()
+                borderSide: BorderSide.none
               )
             ),
           ),
           Positioned(
-            bottom: -1,
+            bottom: 1,
             child: Container(
               height: 3,
               width: MediaQuery.of(context).size.width - 30,
@@ -55,11 +62,18 @@ class CustomTitleTextField extends StatelessWidget {
 }
 
 class CustomBodyTextField extends StatelessWidget {
-  const CustomBodyTextField({super.key});
-
+  const CustomBodyTextField({super.key, this.onSaved});
+  final void Function(String?)?onSaved;
   @override
   Widget build(BuildContext context) {
-    return  TextField(
+    return  TextFormField(
+      onSaved: onSaved,
+       validator: (value){
+      if(value?.isEmpty ??true){
+        return 'Field is required';
+      }
+      return null;
+    },
       maxLines: 5,
       decoration: InputDecoration(
         labelStyle: const TextStyle(color: Colors.grey),

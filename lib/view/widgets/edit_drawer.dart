@@ -103,62 +103,64 @@ class _EditDrawerState extends State<EditDrawer> {
                 color: Colors.red,
               ),
               const SizedBox(height: 20,),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 10),
-                    child: GestureDetector(
-                      onTap: (){},
-                      child: Container(
-                        width: 170,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: Colors.red,
+              FittedBox(
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 10),
+                      child: GestureDetector(
+                        onTap: (){},
+                        child: Container(
+                          width: 170,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
 
-                          borderRadius: BorderRadius.circular(45),
-                        ),
-                        child:  const Center(
-                          child: Text('Delete',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 24
+                            borderRadius: BorderRadius.circular(45),
+                          ),
+                          child:  const Center(
+                            child: Text('Delete',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 24
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 10),
-                    child: GestureDetector(
-                      onTap: (){},
-                      child: Container(
-                        width: 170,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: Colors.lightBlue,
-                          gradient:  LinearGradient(
-                            begin:Alignment.topRight ,
-                            end: Alignment.bottomLeft,
-                            stops:const [0.4,0.6,],
-                            colors: [Colors.lightBlue.shade400,Colors.blue,],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 10),
+                      child: GestureDetector(
+                        onTap: (){},
+                        child: Container(
+                          width: 170,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlue,
+                            gradient:  LinearGradient(
+                              begin:Alignment.topRight ,
+                              end: Alignment.bottomLeft,
+                              stops:const [0.4,0.6,],
+                              colors: [Colors.lightBlue.shade400,Colors.blue,],
+                            ),
+                            borderRadius: BorderRadius.circular(45),
                           ),
-                          borderRadius: BorderRadius.circular(45),
-                        ),
-                        child:  const Center(
-                          child: Text('Update',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 24
+                          child:  const Center(
+                            child: Text('Update',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 24
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               )
             ],
           ),

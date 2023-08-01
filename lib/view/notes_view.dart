@@ -14,9 +14,14 @@ class NotesView extends StatefulWidget {
 
 class _NotesViewState extends State<NotesView> {
 
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       endDrawer:const MyDrawer(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
@@ -24,7 +29,9 @@ class _NotesViewState extends State<NotesView> {
           borderRadius: BorderRadius.circular(24),
         ),
           onPressed: (){
-
+          setState(() {
+            _key.currentState!.openEndDrawer();
+          });
           },
         child: const Icon(Icons.add,color: Colors.white,size: 30,),
       ),

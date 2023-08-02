@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:todo_task/model/note_model.dart';
 
 import 'package:todo_task/view/widgets/edit_drawer.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({super.key, });
-
+  const NoteItem({super.key, required this.note, });
+final NoteModel note;
   @override
   Widget build(BuildContext context) {
+    var currentDate = DateTime.now();
+    var formattedCurrentDate = DateFormat.Md().format(currentDate);
     DateTime now = DateTime.now();
     int hour = now.hour;
     int minute = now.minute;
     return GestureDetector(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>const EditDrawer()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> EditDrawer(note: note,)));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
@@ -25,16 +29,16 @@ class NoteItem extends StatelessWidget {
             Container(
               width: 20,
               height: 20,
-              decoration:  const BoxDecoration(
+              decoration:   BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.red
+                color: Color(note.color)
               ),
             ),
             const SizedBox(width: 15,),
-            const Expanded(
-              child: Text('shopping list, food for the week and anything else to have',
+             Expanded(
+              child: Text(note.subTitle,
               maxLines: 1,
-              style: TextStyle(
+              style: const TextStyle(
                 overflow: TextOverflow.ellipsis,
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
@@ -45,7 +49,8 @@ class NoteItem extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  '${now.day}/${now.month}',
+                  // note.date,
+                  formattedCurrentDate,
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 16,

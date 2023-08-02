@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_task/cubites/add_note_cubit/add_note_cubit.dart';
+import 'package:todo_task/cubites/notes_cubit/notes_cubit.dart';
 import 'package:todo_task/model/note_model.dart';
 import 'package:todo_task/view/widgets/custom_text_field.dart';
-
 import 'color_picker_widget.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -16,18 +17,19 @@ class MyDrawer extends StatefulWidget {
 class _MyDrawerState extends State<MyDrawer> {
 
   final GlobalKey<FormState> formKey = GlobalKey();
-  final List<Color> color = [
-    Colors.pink,
-    Colors.lightBlue,
-    Colors.pinkAccent,
-    Colors.blueGrey,
-    Colors.green,
-    Colors.yellow,
+  final List<Color> color =const [
+     Color(0xffE91E36),
+    Color(0xff03A9F4),
+    Color(0xff9c27B0),
+    Color(0xff263236),
+    Color(0xff4CAF50),
+    Color(0xffFFEB3B),
   ];
   late int selectedIndex;
 
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
   String? title, subTitle, date, time, myColor;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -38,10 +40,13 @@ class _MyDrawerState extends State<MyDrawer> {
           //  TODO add error message
           }
           if (state is AddNoteSuccess) {
+            BlocProvider.of<NotesCubit>(context).fetchAllNotes();
             Navigator.pop(context);
           }
         },
         builder: (context, state) {
+          var currentDate = DateTime.now();
+          var formattedCurrentDate = DateFormat.yMd().format(currentDate);
           return AbsorbPointer(
             absorbing: state is AddNoteLoading ?true:false,
             child: GestureDetector(
@@ -136,8 +141,15 @@ class _MyDrawerState extends State<MyDrawer> {
                         //TODO date picker
                         Container(
                           width: double.infinity,
-                          height: 60,
-                          color: Colors.red,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12)
+                          ),
+                          child:Text(formattedCurrentDate,
+                          style: const TextStyle(
+                            fontSize: 30
+                          ),
+                          ) ,
                         ),
                         const SizedBox(
                           height: 20,
@@ -151,7 +163,10 @@ class _MyDrawerState extends State<MyDrawer> {
                         Container(
                           width: double.infinity,
                           height: 60,
-                          color: Colors.red,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12)
+                          ),
+                          child:Text('') ,
                         ),
                         const SizedBox(
                           height: 20,

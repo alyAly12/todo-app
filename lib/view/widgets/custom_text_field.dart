@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomTitleTextField extends StatelessWidget {
-  const CustomTitleTextField({super.key, this.onSaved});
+  const CustomTitleTextField({super.key, this.onSaved, this.onChange, this.hintTitle});
 final void Function(String?)?onSaved;
+  final void Function(String?)?onChange;
+  final String? hintTitle;
   @override
   Widget build(BuildContext context) {
 
@@ -16,6 +18,7 @@ final void Function(String?)?onSaved;
            TextFormField(
              textInputAction: TextInputAction.next,
              onSaved:onSaved ,
+            onChanged:onChange ,
             validator: (value){
                if(value?.isEmpty ??true){
                  return 'Field is required';
@@ -23,16 +26,16 @@ final void Function(String?)?onSaved;
                return null;
             },
             cursorColor: Colors.purple,
-            decoration: const InputDecoration(
-              // hintText: 'Name',
+            decoration:  InputDecoration(
+              hintText: hintTitle,
               // hintStyle: TextStyle(
               //   color: Colors.grey
               // ),
-              contentPadding: EdgeInsets.symmetric(
+              contentPadding: const EdgeInsets.symmetric(
                 vertical: 15.0,
                 horizontal: 15.0,
               ),
-              border: UnderlineInputBorder(
+              border: const UnderlineInputBorder(
                 borderSide: BorderSide.none
               )
             ),
@@ -63,11 +66,14 @@ final void Function(String?)?onSaved;
 }
 
 class CustomBodyTextField extends StatelessWidget {
-  const CustomBodyTextField({super.key, this.onSaved});
+  const CustomBodyTextField({super.key, this.onSaved, this.onChange, this.hintSub});
   final void Function(String?)?onSaved;
+  final void Function(String?)?onChange;
+  final String? hintSub;
   @override
   Widget build(BuildContext context) {
     return  TextFormField(
+      onChanged: onChange,
       textInputAction: TextInputAction.done,
       onSaved: onSaved,
        validator: (value){
@@ -78,6 +84,7 @@ class CustomBodyTextField extends StatelessWidget {
     },
       maxLines: 5,
       decoration: InputDecoration(
+        hintText:hintSub ,
         labelStyle: const TextStyle(color: Colors.grey),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),

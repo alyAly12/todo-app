@@ -5,7 +5,7 @@ import 'package:todo_task/cubites/add_note_cubit/add_note_cubit.dart';
 import 'package:todo_task/cubites/notes_cubit/notes_cubit.dart';
 import 'package:todo_task/model/note_model.dart';
 import 'package:todo_task/view/widgets/custom_text_field.dart';
-import 'color_picker_widget.dart';
+import 'colors_list_view.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -17,18 +17,12 @@ class MyDrawer extends StatefulWidget {
 class _MyDrawerState extends State<MyDrawer> {
 
   final GlobalKey<FormState> formKey = GlobalKey();
-  final List<Color> color =const [
-     Color(0xffE91E36),
-    Color(0xff03A9F4),
-    Color(0xff9c27B0),
-    Color(0xff263236),
-    Color(0xff4CAF50),
-    Color(0xffFFEB3B),
-  ];
-  late int selectedIndex;
+
+
 
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
   String? title, subTitle, date, time, myColor;
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,28 +74,11 @@ class _MyDrawerState extends State<MyDrawer> {
                               color: Colors.grey),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 30,
                         ),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 80,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: color.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ColorPickerWidget(
-                                    color: color[index],
-                                    fun: () {
-                                      setState(() {
-                                        selectedIndex = index;
-                                      });
-                                    },
-                                  ),
-                                );
-                              }),
-                        ),
+
+                        const ColorListView(),
+                        const SizedBox(height: 10,),
                         const Text(
                           'Name',
                           style: TextStyle(
@@ -166,7 +143,11 @@ class _MyDrawerState extends State<MyDrawer> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12)
                           ),
-                          child:Text('') ,
+                          child:Text('${DateTime.now().hour}:${DateTime.now().minute}',
+                          style: TextStyle(
+                            fontSize: 25
+                          ),
+                          ) ,
                         ),
                         const SizedBox(
                           height: 20,
@@ -174,52 +155,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 12, horizontal: 10),
-                          child: GestureDetector(
-                            onTap: () {
-                              if (formKey.currentState!.validate()) {
-                                formKey.currentState!.save();
-                                var noteModel = NoteModel(
-                                    title: title!,
-                                    subTitle: subTitle!,
-                                    date: DateTime.now().toString(),
-                                    color: Colors.blue.value);
-                                BlocProvider.of<AddNoteCubit>(context)
-                                    .addNote(noteModel);
-                              } else {
-                                autoValidateMode = AutovalidateMode.always;
-                              }
-                            },
-                            child: Container(
-                              width: 170,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: Colors.lightBlue,
-                                gradient: LinearGradient(
-                                  begin: Alignment.topRight,
-                                  end: Alignment.bottomLeft,
-                                  stops: const [
-                                    0.4,
-                                    0.6,
-                                  ],
-                                  colors: [
-                                    Colors.lightBlue.shade400,
-                                    Colors.blue,
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(45),
-                              ),
-                              child:const Center(
-                                child:
-                                 Text(
-                                  'Add',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 24),
-                                ),
-                              ),
-                            ),
-                          ),
+                          child: addButton(context),
                         )
                       ],
                     ),
@@ -232,4 +168,59 @@ class _MyDrawerState extends State<MyDrawer> {
       ),
     );
   }
+
+  GestureDetector addButton(BuildContext context) {
+    return GestureDetector(
+                          onTap: () {
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              var noteModel = NoteModel(
+                                  title: title!,
+                                  subTitle: subTitle!,
+                                  date: DateTime.now().toString(),
+                                  color: Colors.blue.value);
+                              BlocProvider.of<AddNoteCubit>(context)
+                                  .addNote(noteModel);
+                            } else {
+                              autoValidateMode = AutovalidateMode.always;
+                            }
+                            setState(() {
+
+                            });
+                          },
+                          child: Container(
+                            width: 170,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.lightBlue,
+                              gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                stops: const [
+                                  0.4,
+                                  0.6,
+                                ],
+                                colors: [
+                                  Colors.lightBlue.shade400,
+                                  Colors.blue,
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(45),
+                            ),
+                            child:const Center(
+                              child:
+                               Text(
+                                'Add',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 24),
+                              ),
+                            ),
+                          ),
+                        );
+  }
 }
+
+
+

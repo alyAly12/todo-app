@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_task/cubites/notes_cubit/notes_cubit.dart';
 import 'package:todo_task/model/note_model.dart';
 import 'package:todo_task/view/widgets/custom_text_field.dart';
-
-import 'color_picker_widget.dart';
+import 'edit_note_color_list.dart';
 
 
 
@@ -54,24 +53,10 @@ class _EditDrawerState extends State<EditDrawer> {
                   color: Colors.grey
               ),
             ),
-            const SizedBox(height: 20,),
-            SizedBox(
-              width: double.infinity,
-              height: 80,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: color.length,
-                  itemBuilder: (context,index){
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ColorPickerWidget(color: color[index], fun: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                      } ,),
-                    );
-                  }),
-            ),
+            const SizedBox(height: 15,),
+            //TODO : edit color list
+             EditNoteColorList(note: widget.note,),
+            const SizedBox(height: 15,),
             const Text('Name',
               style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
             ),
@@ -196,3 +181,5 @@ class _EditDrawerState extends State<EditDrawer> {
 );
   }
 }
+
+

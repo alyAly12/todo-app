@@ -7,7 +7,7 @@ import 'package:todo_task/view/widgets/side_drawer.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key,});
-
+static  String id ='notesView';
   @override
   State<NotesView> createState() => _NotesViewState();
 }

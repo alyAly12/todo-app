@@ -144,7 +144,7 @@ class _MyDrawerState extends State<MyDrawer> {
                             borderRadius: BorderRadius.circular(12)
                           ),
                           child:Text('${DateTime.now().hour}:${DateTime.now().minute}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 25
                           ),
                           ) ,

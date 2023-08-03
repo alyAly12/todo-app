@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:todo_task/app_consts.dart';
+import 'package:todo_task/auth/login_auth.dart';
 import 'package:todo_task/model/note_model.dart';
 import 'package:todo_task/simple_bloc_observer.dart';
 import 'package:todo_task/view/notes_view.dart';
@@ -29,9 +30,12 @@ class TodoApp extends StatelessWidget {
         theme: ThemeData.light(
             useMaterial3: true
         ),
-        home: const NotesView(),
+        home: const LoginScreen(),
+          routes: {
+          NotesView.id:(context)=>const NotesView()
+          },
       ),
     );
   }
 }
-
+//const NotesView(),

@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 const kNoteBox = 'note_box';
+const baseUrl='https://phpstack-561490-3524079.cloudwaysapps.com/api-start-point/public/api/';
+const Map<String, String> headers = {"Content-Type": "application/json"};
+errorSnackBar(BuildContext context, String text) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    backgroundColor: Colors.red,
+    content: Text(text),
+    duration: const Duration(seconds: 1),
+  ));
+}
 
 
 const List<Color> kColors = [

@@ -20,7 +20,7 @@ class AuthServices{
       body: body,
       headers: headers
     );
-    print(response.body);
+
     return response;
   }
 

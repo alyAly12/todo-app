@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:todo_task/cubites/add_note_cubit/add_note_cubit.dart';
 import 'package:todo_task/cubites/notes_cubit/notes_cubit.dart';
 import 'package:todo_task/model/note_model.dart';
@@ -22,8 +21,8 @@ class _MyDrawerState extends State<MyDrawer> {
 
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
   String? title, subTitle, date, time, myColor;
-
-
+   DateTime pickedDate = DateTime(2023,08,04,);
+   TimeOfDay pickedTime = const TimeOfDay(hour: 12, minute: 12);
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -39,8 +38,6 @@ class _MyDrawerState extends State<MyDrawer> {
           }
         },
         builder: (context, state) {
-          var currentDate = DateTime.now();
-          var formattedCurrentDate = DateFormat.yMd().format(currentDate);
           return AbsorbPointer(
             absorbing: state is AddNoteLoading ?true:false,
             child: GestureDetector(
@@ -116,18 +113,48 @@ class _MyDrawerState extends State<MyDrawer> {
                               color: Colors.grey, fontWeight: FontWeight.bold),
                         ),
                         //TODO date picker
-                        Container(
-                          width: double.infinity,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12)
-                          ),
-                          child:Text(formattedCurrentDate,
-                          style: const TextStyle(
-                            fontSize: 30
-                          ),
-                          ) ,
-                        ),
+                       Expanded(
+                         child: Row(
+                           children: [
+                             Container(
+                               decoration: BoxDecoration(
+                                   borderRadius: BorderRadius.circular(12)
+                               ),
+                               child:Text('${pickedDate.year}/${pickedDate.month}/${pickedDate.day}',
+                                 style: const TextStyle(
+                                     fontSize: 30
+                                 ),
+                               ) ,
+                             ),
+                             const SizedBox(width: 10,),
+                             ElevatedButton.icon(
+                                 style: ElevatedButton.styleFrom(
+                                   shape: const RoundedRectangleBorder(
+                                    side: BorderSide.none
+                                   )
+                                 ),
+                                 onPressed: ()async{
+                                 DateTime? newDate=await  showDatePicker(
+                                       context: context,
+                                       initialDate: pickedDate,
+                                       firstDate: DateTime(1900),
+                                       lastDate: DateTime(2100)
+                                   );
+                                 if(newDate ==null){
+                                   return ;
+                                 }
+                                 setState(() {
+                                   pickedDate =newDate;
+                                 });
+
+                                 },
+                                 icon: const Icon(
+                                   Icons.keyboard_arrow_down_outlined,color: Colors.black,),
+                                 label: const Text(''))
+                           ],
+                         ),
+                       ),
+
                         const SizedBox(
                           height: 20,
                         ),
@@ -137,17 +164,43 @@ class _MyDrawerState extends State<MyDrawer> {
                           style: TextStyle(
                               color: Colors.grey, fontWeight: FontWeight.bold),
                         ),
-                        Container(
-                          width: double.infinity,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12)
-                          ),
-                          child:Text('${DateTime.now().hour}:${DateTime.now().minute}',
-                          style: const TextStyle(
-                            fontSize: 25
-                          ),
-                          ) ,
+                        Row(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12)
+                              ),
+                              child:Text('${pickedTime.hour}:${pickedTime.minute}',
+                                style: const TextStyle(
+                                    fontSize: 25
+                                ),
+                              ) ,
+                            ),
+                            const SizedBox(width: 10,),
+                            ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                    shape: const RoundedRectangleBorder(
+                                        side: BorderSide.none
+                                    )
+                                ),
+                                onPressed: ()async{
+                                TimeOfDay? newTime = await showTimePicker(
+                                     context: context,
+                                     initialTime: pickedTime
+                                 );
+
+                                  if(newTime ==null){
+                                    return ;
+                                  }
+                                  setState(() {
+                                    pickedTime =newTime;
+                                  });
+
+                                },
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down_outlined,color: Colors.black,),
+                                label: const Text(''))
+                          ],
                         ),
                         const SizedBox(
                           height: 20,
@@ -177,8 +230,9 @@ class _MyDrawerState extends State<MyDrawer> {
                               var noteModel = NoteModel(
                                   title: title!,
                                   subTitle: subTitle!,
-                                  date: DateTime.now().toString(),
-                                  color: Colors.blue.value);
+                                  date: pickedDate.toString(),
+                                  color: Colors.blue.value,
+                                 );
                               BlocProvider.of<AddNoteCubit>(context)
                                   .addNote(noteModel);
                             } else {
@@ -221,6 +275,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         );
   }
 }
+
 
 
 

@@ -11,8 +11,10 @@ class AddNoteCubit extends Cubit<AddNoteState> {
   AddNoteCubit() : super(AddNoteInitial());
 
 Color color =const Color(0xffE91E36);
+  DateTime pickedDate = DateTime(08,04);
 
   addNote(NoteModel note)async{
+
     note.color =color.value;
     emit(AddNoteLoading());
   try{

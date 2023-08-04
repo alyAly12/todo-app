@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:todo_task/model/note_model.dart';
-
 import 'package:todo_task/view/widgets/edit_drawer.dart';
 
 class NoteItem extends StatelessWidget {
   const NoteItem({super.key, required this.note, });
 final NoteModel note;
+
   @override
   Widget build(BuildContext context) {
-    var currentDate = DateTime.now();
-    var formattedCurrentDate = DateFormat.Md().format(currentDate);
+    DateTime pickedDate =DateTime(08,04);
+    // var currentDate = DateTime.now();
+    // var formattedCurrentDate = DateFormat.Md().format(currentDate);
     DateTime now = DateTime.now();
     int hour = now.hour;
     int minute = now.minute;
@@ -49,8 +49,9 @@ final NoteModel note;
             Column(
               children: [
                 Text(
+                  note.date,
                   // note.date,
-                  formattedCurrentDate,
+
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 16,
